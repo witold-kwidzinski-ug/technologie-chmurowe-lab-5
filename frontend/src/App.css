@@ -1,0 +1,37 @@
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(177, 177, 255);
+  padding: 20px;
+  
+}
+
+header a {
+  color: white;
+  font-weight: bold;
+  padding-right: 5px;
+}
+
+#itemgrid {
+  background-color: rgb(201, 201, 201);
+  border-radius: 5px;
+  justify-self: center;
+  margin: 20px;
+  width: 50vw;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.item {
+  width: 10vw;
+  height: 3vw;
+  background-color: grey;
+  border-radius: 10px;
+  margin: 5px;
+  padding: 5px;
+  text-align: center;
+  color: white;
+  justify-self: center;
+}

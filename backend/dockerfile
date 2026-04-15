@@ -1,0 +1,52 @@
+FROM node:24-alpine AS deps
+
+WORKDIR /deps
+
+COPY package*.json ./
+
+RUN npm ci --omit=dev
+
+
+
+FROM deps AS test
+
+WORKDIR /test
+
+COPY package*.json ./
+
+RUN npm ci
+
+COPY . .
+
+RUN npm test
+
+
+
+FROM node:24-alpine AS production
+
+
+ARG BUILD_DATE
+ARG VERSION
+ARG NODE_ENV=production
+
+LABEL org.opencontainers.image.created=$BUILD_DATE
+LABEL org.opencontainers.image.version=$VERSION
+LABEL org.opencontainers.image.title="lab4-backend"
+
+
+WORKDIR /backend
+
+COPY --from=deps /deps/node_modules ./node_modules 
+
+COPY . .
+
+RUN addgroup -S appgroup && adduser -S app -G appgroup
+
+USER app
+
+EXPOSE 3000
+
+HEALTHCHECK --interval=30s --timeout=5s \
+    CMD wget -qO- http://localhost:3000/health || exit 1
+
+CMD ["node", "server.js"]

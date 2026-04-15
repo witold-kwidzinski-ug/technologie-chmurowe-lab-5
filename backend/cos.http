@@ -1,0 +1,15 @@
+
+GET http://localhost:1234/items
+
+### 
+
+POST http://localhost:1234/items
+Content-Type: application/json
+
+{
+    "name": "jej"
+}
+
+###
+
+GET http://localhost:1234/stats
