@@ -66,10 +66,8 @@ app.get("/health", (req, res) => {
 })
 
 
-if (require.main === module) {
-    app.listen(3000, () => {
-        console.log("Started backend at http://localhost:3000")
-    })
-}
+app.listen(3000, () => {
+    console.log("Started backend at http://localhost:3000")
+})
 
 module.exports = app
